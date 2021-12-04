@@ -7,6 +7,7 @@ app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///pics.db"
 db = SQLAlchemy(app)
 uploaded = False
 
+
 class Img(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     img = db.Column(db.Text, unique=True, nullable=False)
@@ -46,6 +47,16 @@ def get_img(id):
         return 'Img Not Found!', 404
 
     return Response(img.img, mimetype=img.mimetype)
+
+
+@app.route("/delete/")
+def delete():
+    try:
+        num_rows_deleted = db.session.query(Img).delete()
+        db.session.commit()
+        return redirect("/")
+    except:
+        return "There was a problem deleting"
 
 
 if __name__ == "__main__":

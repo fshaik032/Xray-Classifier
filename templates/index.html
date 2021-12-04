@@ -12,6 +12,7 @@
     </div>
     {% if uploaded == true %}
     <p>Upload Successful</p>
+    <a href="/delete/">Delete Image</a>
     {% else %}
     <form action="/" enctype="multipart/form-data" method="POST">
         <input type="file" name="pic"/>
