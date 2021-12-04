@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block head %}
+<title>Task Master</title>
+{% endblock %}
+
+{% block body %}
+<div class="content">
+    <div class="top">
+        <h1 class="title">Chest X-Ray Classifier</h1>
+        <p class='description'>With Chest X-ray Classifier, you can quickly learn whether an X-ray shows signs of Pneumonia</p>
+    </div>
+    {% if uploaded == true %}
+    <p>Upload Successful</p>
+    {% else %}
+    <form action="/" enctype="multipart/form-data" method="POST">
+        <input type="file" name="pic"/>
+        <input type="submit" value="Upload a file"/>
+    </form>
+    {% endif %}
+</div>
+{% endblock %}
