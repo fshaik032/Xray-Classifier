@@ -31,6 +31,10 @@ def index():
             return 'Bad upload!', 400
 
         img = Img(img=pic.read(), name=filename, mimetype=mimetype)
+        # clear the table before adding a new image
+        num_rows_deleted = db.session.query(Img).delete()
+        db.session.commit()
+
         db.session.add(img)
         db.session.commit()
         global uploaded
