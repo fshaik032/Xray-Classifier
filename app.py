@@ -1,10 +1,8 @@
-from flask import Flask, render_template, request, redirect, Response
-from werkzeug.utils import secure_filename
-import os
-import tensorflow as tf
-from tensorflow import keras
 import cv2
 import numpy as np
+import tensorflow as tf
+from flask import Flask, render_template, request
+from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
 uploaded = False
