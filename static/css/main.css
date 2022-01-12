@@ -1,26 +1,111 @@
+.container-1 {
+    display: flex;
+    flex-direction: column;
+    height: 1020px;
+    border: solid;
+}
 .top {
-    width: 100%;
-    height: 65%;
-    left: 0px;
-    top: 0px;
-    background: #B0D8A3;
-    font-size: 1em;
-}
-.title {
-    font-family: Dosis;
-    font-style: normal;
-    font-weight: bold;
-    font-size: 5em;
+    display: flex;
+    flex: 2;
     text-align: center;
-    color: #FCF8F8;
+    background-color: #B0D8A3;
+    align-items:center;
+    justify-content:center;
 }
-.description {
 
-    font-family: Alegreya;
-    font-style: normal;
-    font-weight: bold;
-    font-size: 1.2em;
-    line-height: 49px;
-    text-align: center;
+.title {
     color: #FCF8F8;
+    font-family: "Times New Roman";
+}
+
+.description {
+    color: #FCF8F8;
+    font-family: "arial";
+}
+
+.bottom {
+
+    flex: 1;
+    text-align: center;
+}
+.about {
+    flex: 2;
+    background-color: #B0D8A3;
+    color: #FCF8F8;
+    font-family: "arial";
+    text-align: center;
+    display: flex;
+    align-items:center;
+    justify-content:center;
+}
+.wrapper>p{
+    line-height: 2rem;
+}
+.wrapper>h3{
+    font-family: "Times New Roman";
+}
+.rip{
+    padding-top: 3%;
+    display: inline-block;
+    text-align: center;
+}
+.words {
+    margin-bottom: 15%;
+    width: 50%;
+}
+.words>p {
+    line-height: 2rem;
+}
+
+#upload\ button {
+    font-size:16px;
+    background:white;
+    border-radius: 50px;
+    box-shadow:5px 5px 10px gray;
+    width: 350px;
+    outline: none;
+}
+::-webkit-file-upload-button {
+    color:white;
+    background: #B0D8A3;
+    padding:20px;
+    border:none;
+    border-radius: 50px;
+    box-shadow:1px 0 1px 1px rgba(176, 216, 163, 0.71);
+}
+::-webkit-file-upload-button:hover{
+    background: rgba(176, 216, 163, 0.71);|
+}
+.sub{
+    display: block;
+    border:0;
+    background: #b0d8a3;
+    padding: 1rem;
+    color:white;
+    margin:1rem auto;
+    width:auto;
+    text-transform: uppercase;
+    border-radius: 50px;
+}
+.sub:hover{
+    background: rgba(176, 216, 163, 0.71);|
+}
+.wrapper{
+    width: 30%
+}
+img {
+    max-width: 100%;
+    max-height: 100%;
+}
+.square {
+    height: 80%;
+    width: 20%;
+    margin-bottom: 1%;
+}
+.bottom2 {
+    flex: 1;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }

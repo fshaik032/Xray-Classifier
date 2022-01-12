@@ -1,23 +1,44 @@
 {% extends "base.html" %}
 
 {% block head %}
-<title>Task Master</title>
+<title>Chest X-ray Classifier</title>
 {% endblock %}
 
 {% block body %}
-<div class="content">
+<div class="container-1">
     <div class="top">
+     <div class="words">
         <h1 class="title">Chest X-Ray Classifier</h1>
-        <p class='description'>With Chest X-ray Classifier, you can quickly learn whether an X-ray shows signs of Pneumonia</p>
+        <p class='description'>With Chest X-ray Classifier, you can quickly learn whether an X-ray shows signs of Pneumonia. To get started, choose the x-ray from your computer. Then press the "Classify X-ray" button to get your result</p>
     </div>
-    {% if uploaded == true %}
-    <p>Upload Successful</p>
-    <a href="/delete/">Delete Image</a>
-    {% else %}
-    <form action="/" enctype="multipart/form-data" method="POST">
-        <input type="file" name="pic"/>
-        <input type="submit" value="Upload a file"/>
-    </form>
-    {% endif %}
-</div>
-{% endblock %}
+    </div>
+        {% if uploaded == true and pne == true%}
+        <div class="bottom2">
+          <p>Your X-ray indicates you likely have Pneumonia, please visit your doctor as soon as you can</p>
+          <div class="square">
+            <img src="../static/images/image.png">
+          </div>
+      </div>
+        {% elif uploaded == true and pne == false%}
+        <div class="bottom2">
+          <p>Your X-ray indicates you likely do not have Pneumonia. Please keep in mind, the model is 86% accurate, so if you have any concerns please visit the doctor</p>
+          <div class="square">
+            <img src="../static/images/image.png">
+          </div>
+      </div>
+        {% else %}
+        <div class="bottom">
+          <form action="/" enctype="multipart/form-data" method="POST" class="rip">
+            <input id="upload button" type="file" name="pic" accept="image/*"/>
+            <input class="sub" type="submit" value="Classify X-ray"/>
+          </form>
+        </div>
+      {% endif %}
+      <div class="about">
+        <div class="wrapper">
+          <h3>About Me</h3>
+          <p>My name is Faaris Shaik, and I’m currently a Computer Science student at the University of Illinois. According to the Center of Disease Control, there are approximately 1.5 million visits to the emergency room for pneumonia in the US annually. With Pneumonia being a possible symptom of COVID-19, that figure has undoubtedly increased. I decided to build this web app to help alleviate the burden doctors are currently facing with infected patients. The machine learning model the website uses to classify was made using a dataset from Kaggle and it currently has an accuracy of 86%.</p>
+        </div>
+    </div>
+    </div>
+  {% endblock %}

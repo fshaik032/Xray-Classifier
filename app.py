@@ -1,66 +1,60 @@
 from flask import Flask, render_template, request, redirect, Response
-from flask_sqlalchemy import SQLAlchemy
 from werkzeug.utils import secure_filename
+import os
+import tensorflow as tf
+from tensorflow import keras
+import cv2
+import numpy as np
 
 app = Flask(__name__)
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///pics.db"
-db = SQLAlchemy(app)
 uploaded = False
+pne = False
+# load in tensorflow model
+new_model = tf.keras.models.load_model('xray_model')
 
-
-class Img(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    img = db.Column(db.Text, unique=True, nullable=False)
-    name = db.Column(db.Text, nullable=False)
-    mimetype = db.Column(db.Text, nullable=False)
-
-    def __repr__(self):
-        return "<Task %r>" % self.id
-
+def process_data(img_path):
+    img = cv2.imread(img_path)
+    img = cv2.resize(img, (196, 196))
+    img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    img = img/255.0
+    img = np.reshape(img, (196,196,1))
+    return img
 
 @app.route("/", methods=["POST", "GET"])
 def index():
+    # if it's a post request, we add the image to the folder
     if request.method == "POST":
+        # We store the image from the html form in this pic variable
         pic = request.files['pic']
         if not pic:
             return 'No pic uploaded!', 400
-
+        # get the name of the image which is uploaded
         filename = secure_filename(pic.filename)
         mimetype = pic.mimetype
         if not filename or not mimetype:
             return 'Bad upload!', 400
-
-        img = Img(img=pic.read(), name=filename, mimetype=mimetype)
-        # clear the table before adding a new image
-        num_rows_deleted = db.session.query(Img).delete()
-        db.session.commit()
-
-        db.session.add(img)
-        db.session.commit()
+        image_path = "./static/images/image.png"
+        pic.save(image_path)
         global uploaded
+        global pne
+        # we change the uploaded boolean to true so the html page wont't show the upload button anymore
         uploaded = True
-        return render_template("index.html", uploaded=uploaded)
+        # process image and convert it into the numpy array
+        data = []
+        data.append(process_data(image_path))
+        img = np.array(data)
+        # Make prediction
+        y_val_hat = new_model.predict(img, batch_size=1)
+        y_val_hat = np.argmax(y_val_hat, axis=1)
+        # 1 means pneumonia, 0 means healthy
+        if (y_val_hat == [0]):
+            pne = False
+        else:
+            pne = True
+        return render_template("index.html", uploaded=uploaded, pne=pne)
     else:
         return render_template("index.html")
 
-
-@app.route('/<int:id>')
-def get_img(id):
-    img = Img.query.filter_by(id=id).first()
-    if not img:
-        return 'Img Not Found!', 404
-
-    return Response(img.img, mimetype=img.mimetype)
-
-
-@app.route("/delete/")
-def delete():
-    try:
-        num_rows_deleted = db.session.query(Img).delete()
-        db.session.commit()
-        return redirect("/")
-    except:
-        return "There was a problem deleting"
 
 
 if __name__ == "__main__":
