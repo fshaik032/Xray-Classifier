@@ -30,7 +30,4 @@ flatbuffers~=2.0
 astunparse~=1.6.3
 termcolor~=1.1.0
 Flask~=2.0.2
-<<<<<<< HEAD
 gunicorn==20.0.4
-=======
->>>>>>> 7a950bda08105224186cb99f03649f7e51a2c453
