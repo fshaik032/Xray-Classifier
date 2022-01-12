@@ -14,7 +14,7 @@ Jinja2~=3.0.3
 click~=8.0.3
 itsdangerous~=2.0.1
 keras~=2.7.0
-tensorflow~=2.7.0
+tensorflow-cpu~=2.7.0
 wrapt~=1.13.3
 requests~=2.27.0
 setuptools~=57.0.0
@@ -30,4 +30,7 @@ flatbuffers~=2.0
 astunparse~=1.6.3
 termcolor~=1.1.0
 Flask~=2.0.2
+<<<<<<< HEAD
 gunicorn==20.0.4
+=======
+>>>>>>> 7a950bda08105224186cb99f03649f7e51a2c453
